@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agregar - BaseKids</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #5de0e6, #004aad);
+      overflow-y: auto; /* Permite el desplazamiento vertical */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh; /* Asegura que el cuerpo ocupe al menos toda la altura de la ventana */
+    }
+
+    header {
+      background: transparent;
+      color: white;
+      padding: 10px 20px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px; /* Ajusta según necesites */
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .header-left span {
+      font-size: 32px; /* Aumenta el tamaño de la fuente */
+      margin-left: 25px; /* Ajusta el margen izquierdo si es necesario */
+    }
+
+    .header-left img {
+      width: 20px;
+      margin-right: 10px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .header-right button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+
+    .header-right button img {
+      width: 24px;
+      height: 24px;
+      position: relative;
+      left: 10px;
+    }
+
+    .header-right button.usuario {
+      border: 2px solid white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      color: white;
+      position: relative;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: white;
+      color: black;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown a:hover {
+      background-color: #ddd;
+    }
+
+    .divider {
+      width: 100%;
+      height: 2px;
+      background-color: white;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      z-index: 1;
+    }
+
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      padding: 20px;
+      width: 90%; /* Aumenta el ancho al 90% */
+      max-width: 1000px; /* Aumenta el ancho máximo a 1000px */
+      text-align: center;
+      /*margin-top: 0px;  Ajusta el margen superior para subirlo */
+      overflow-y: auto; /* Permite el desplazamiento vertical dentro del contenedor */
+      max-height: 80vh; /* Limita la altura máxima del contenedor */
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .form-grid input, .form-grid select {
+      width: calc(100% - 22px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .form-grid label {
+      text-align: left;
+      margin-bottom: 5px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .form-container button {
+      background-color: #004aad;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    .logo {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      width: 150px;
+    }
+
+    .back-button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-size: 20px; /* Aumenta el tamaño del botón */
+    }
+
+    .back-button img {
+      width: 40px; /* Aumenta el tamaño de la imagen */
+      margin-right: 0px;
+      margin-left: 15px;
+    }
+
+    #genero {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center; /* Alinea verticalmente los elementos */
+    }
+
+    #genero label {
+      display: flex;
+      align-items: center; /* Alinea verticalmente el texto con el botón de radio */
+      gap: 5px; /* Espacio entre el botón de radio y el texto */
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <button class="back-button">
+      <img src="img/Volver.png" alt="Atrás">
+    </button>
+    <span>Agregar</span>
+  </div>
+  <div class="header-right">
+    <button><img src="img/CampanaSinNotificacion.png" alt="Notificación"></button>
+    <button class="usuario" onclick="toggleDropdown()">Usuario</button>
+    <div class="dropdown" id="dropdownMenu">
+      <a href="#">Perfil</a>
+      <a href="#">Cerrar sesión</a>
+    </div>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<div class="form-container">
+  <div class="form-grid">
+    <div>
+      <label for="informe">Informe</label>
+      <input type="text" id="informe">
+    </div>
+    <div>
+      <label for="numeroDocumento">N° de Documento</label>
+      <input type="text" id="numeroDocumento">
+    </div>
+    <div>
+      <label for="tipoDoc">Tipo Doc</label>
+      <select id="tipoDoc">
+        <option value="CC">C.C.</option>
+        <option value="TI">T.I.</option>
+        <option value="RC">R.C.</option>
+        <option value="CE">C.E.</option>
+        <option value="NUIP">NUIP</option>
+        <option value="PASAPORTE">PASAPORTE</option>
+        <option value="NIT">NIT</option>
+        <option value="CARNE_DIPLOMATICO">CARNE DIPLOMÁTICO</option>
+        <option value="PEP">PERMISO ESPECIAL DE PERMANENCIA (P.E.P)</option>
+        <option value="CERTIFICADO_CABILDO">CERTIFICADO CABILDO</option>
+        <option value="NES">NES</option>
+        <option value="TMF">TARJETA DE MOVILIDAD FRONTERIZA (TMF)</option>
+        <option value="VISA">VISA</option>
+        <option value="ID_EXTRANJEROS">ID EXTRANJEROS DIFERENTE A LA CÉDULA DE EXTRANJERÍA</option>
+      </select>
+    </div>
+    <div>
+      <label for="nombreCompleto">NOMBRE COMPLETO</label>
+      <input type="text" id="nombreCompleto">
+    </div>
+    <div>
+      <label for="primerNombre">Primer nombre del estudiante</label>
+      <input type="text" id="primerNombre">
+    </div>
+    <div>
+      <label for="segundoNombre">Segundo Nombre del estudiante</label>
+      <input type="text" id="segundoNombre">
+    </div>
+    <div>
+      <label for="primerApellido">Primer apellido del estudiante</label>
+      <input type="text" id="primerApellido">
+    </div>
+    <div>
+      <label for="segundoApellido">Segundo apellido del estudiante</label>
+      <input type="text" id="segundoApellido">
+    </div>
+    <div>
+      <label for="genero">Género</label>
+      <div id="genero">
+        <label><input type="radio" name="genero" value="M"> M</label>
+        <label><input type="radio" name="genero" value="F"> F</label>
+      </div>
+    </div>
+    <div>
+      <label for="fechaNacimiento">Fecha de Nacimiento</label>
+      <input type="text" id="fechaNacimiento">
+    </div>
+    <div>
+      <label for="estadoCivil">Estado Civil</label>
+      <input type="text" id="estadoCivil">
+    </div>
+    <div>
+      <label for="grupoEtnico">Grupo étnico a que pertenece el niño o niña beneficiario (a)</label>
+      <input type="text" id="grupoEtnico">
+    </div>
+    <div>
+      <label for="factorVulnerabilidad">Factor de vulnerabilidad</label>
+      <input type="text" id="factorVulnerabilidad">
+    </div>
+    <div>
+      <label for="paisNacimiento">País de nacimiento</label>
+      <input type="text" id="paisNacimiento">
+    </div>
+    <div>
+      <label for="municipioNacimiento">Municipio de nacimiento</label>
+      <input type="text" id="municipioNacimiento">
+    </div>
+    <div>
+      <label for="municipioResidencia">Municipio de residencia</label>
+      <input type="text" id="municipioResidencia">
+    </div>
+    <div>
+      <label for="direccionResidencia">Dirección de residencia</label>
+      <input type="text" id="direccionResidencia">
+    </div>
+    <div>
+      <label for="zonaEstudiante">Zona del estudiante</label>
+      <input type="text" id="zonaEstudiante">
+    </div>
+    <div>
+      <label for="mundo">Mundo</label>
+      <input type="text" id="mundo">
+    </div>
+    <div>
+      <label for="modalidad">Modalidad</label>
+      <input type="text" id="modalidad">
+    </div>
+    <div>
+      <label for="dias">Días</label>
+      <input type="text" id="dias">
+    </div>
+    <div>
+      <label for="horarioInicio">Horario Inicio</label>
+      <input type="text" id="horarioInicio">
+    </div>
+    <div>
+      <label for="horarioFin">Horario Fin</label>
+      <input type="text" id="horarioFin">
+    </div>
+    <div>
+      <label for="codigoDane">Código DANE IE</label>
+      <input type="text" id="codigoDane">
+    </div>
+    <div>
+      <label for="subregionIE">Subregión IE</label>
+      <input type="text" id="subregionIE">
+    </div>
+    <div>
+      <label for="municipioIE">Municipio IE</label>
+      <input type="text" id="municipioIE">
+    </div>
+    <div>
+      <label for="institucionEducativa">Institución Educativa</label>
+      <input type="text" id="institucionEducativa">
+    </div>
+    <div>
+      <label for="codigoDaneSede">Código DANE Sede</label>
+      <input type="text" id="codigoDaneSede">
+    </div>
+    <div>
+      <label for="sede">Sede</label>
+      <input type="text" id="sede">
+    </div>
+    <div>
+      <label for="grado">Grado</label>
+      <input type="text" id="grado">
+    </div>
+    <div>
+      <label for="jornada">Jornada</label>
+      <input type="text" id="jornada">
+    </div>
+    <div>
+      <label for="nit">NIT</label>
+      <input type="text" id="nit">
+    </div>
+    <div>
+      <label for="proveedor">Proveedor</label>
+      <input type="text" id="proveedor">
+    </div>
+  </div>
+  <button onclick="agregarDatos()">Agregar</button>
+</div>
+
+<img src="img/logoFundacionBlanco.png" alt="Logo Fundación" class="logo">
+
+<script src="datosEstudiante.js"></script>
+<script src="datos.js"></script>
+<script>
+  function toggleDropdown() {
+    var dropdown = document.getElementById('dropdownMenu');
+    if (dropdown.style.display === 'block') {
+      dropdown.style.display = 'none';
+    } else {
+      dropdown.style.display = 'block';
+    }
+  }
+
+  document.addEventListener('click', function(event) {
+    var dropdown = document.getElementById('dropdownMenu');
+    var button = document.querySelector('.header-right .usuario');
+    if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+      dropdown.style.display = 'none';
+    }
+  });
+
+  function agregarDatos() {
+    const informe = document.getElementById('informe').value;
+    const numeroDocumento = document.getElementById('numeroDocumento').value;
+    const tipoDoc = document.getElementById('tipoDoc').value;
+    const nombreCompleto = document.getElementById('nombreCompleto').value;
+    const primerNombre = document.getElementById('primerNombre').value;
+    const segundoNombre = document.getElementById('segundoNombre').value;
+    const primerApellido = document.getElementById('primerApellido').value;
+    const segundoApellido = document.getElementById('segundoApellido').value;
+    const genero = document.querySelector('input[name="genero"]:checked').value;
+    const fechaNacimiento = document.getElementById('fechaNacimiento').value;
+    const estadoCivil = document.getElementById('estadoCivil').value;
+    const grupoEtnico = document.getElementById('grupoEtnico').value;
+    const factorVulnerabilidad = document.getElementById('factorVulnerabilidad').value;
+    const paisNacimiento = document.getElementById('paisNacimiento').value;
+    const municipioNacimiento = document.getElementById('municipioNacimiento').value;
+    const municipioResidencia = document.getElementById('municipioResidencia').value;
+    const direccionResidencia = document.getElementById('direccionResidencia').value;
+    const zonaEstudiante = document.getElementById('zonaEstudiante').value;
+    const mundo = document.getElementById('mundo').value;
+    const modalidad = document.getElementById('modalidad').value;
+    const dias = document.getElementById('dias').value;
+    const horarioInicio = document.getElementById('horarioInicio').value;
+    const horarioFin = document.getElementById('horarioFin').value;
+    const codigoDane = document.getElementById('codigoDane').value;
+    const subregionIE = document.getElementById('subregionIE').value;
+    const municipioIE = document.getElementById('municipioIE').value;
+    const institucionEducativa = document.getElementById('institucionEducativa').value;
+    const codigoDaneSede = document.getElementById('codigoDaneSede').value;
+    const sede = document.getElementById('sede').value;
+    const grado = document.getElementById('grado').value;
+    const jornada = document.getElementById('jornada').value;
+    const nit = document.getElementById('nit').value;
+    const proveedor = document.getElementById('proveedor').value;
+
+    const estudiante = new Estudiante(informe, numeroDocumento, tipoDoc, nombreCompleto, primerNombre, segundoNombre, primerApellido, segundoApellido, genero, fechaNacimiento, estadoCivil, grupoEtnico, factorVulnerabilidad, paisNacimiento, municipioNacimiento, municipioResidencia, direccionResidencia, zonaEstudiante, mundo, modalidad, dias, horarioInicio, horarioFin, codigoDane, subregionIE, municipioIE, institucionEducativa, codigoDaneSede, sede, grado, jornada, nit, proveedor);
+
+    localStorage.setItem('estudiante', JSON.stringify(estudiante));
+    alert("Datos agregados con éxito.");
+  }
+</script>
+</body>
+</html>
