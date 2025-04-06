@@ -1,54 +1,37 @@
 USE BaseDatosFundacion;
 
--- Insertar en la tabla Administrativos
-INSERT INTO Administrativos (numeroDoc, nombreCompleto, email, tipoDoc)
-VALUES ('1002', 'Mariana Suárez', 'mariana.suarez@colegio.edu.co', 'CC');
 
--- Insertar en la tabla Profesor
-INSERT INTO Profesor (numeroDoc, nombreCompleto, email, tipoDoc)
-VALUES ('2002', 'Diego Torres', 'diego.torres@colegio.edu.co', 'CC');
+INSERT INTO basedatosfundacion.usuario (numDoc, tipoDoc, username, email, password, rol)
+VALUES 
+('123456789', 'CC', 'juanadmin', 'juan.admin@email.com', 'admin123', 'administrativo'),
+('987654321', 'TI', 'lauraprof', 'laura.prof@email.com', 'prof456', 'profesor');
 
--- Insertar en la tabla Estudiantes
-INSERT INTO Estudiantes (
-    numeroDocEstudiante, tipoDoc, informe, primerNombre, segundoNombre,
-    primerApellido, segundoApellido, genero, fechaNacimiento,
-    estadoCivil, grupoEtnico, factorVulnerabilidad, paisNacimiento,
-    municipioNacimiento, municipioResidencia, direccionResidencia,
-    zonaEstudiante, mundo, modalidad, dias, horarioInicio, horarioFin,
-    codigoDaneIE, subregionIE, municipioIE, institucionEducativa,
-    codigoDaneSede, sede, grado, jornada, nit, proveedor
-)
-VALUES (
-    '3002', 'TI', 'Ninguno', 'Valentina', 'María', 'López', 'González', 'F',
-    '2011-08-20', 'Soltera', 'Afrodescendiente', 'Desplazado', 'Colombia', 'Envigado',
-    'Envigado', 'Carrera 50 #20-10', 'Rural', 'Agua', 'Presencial',
-    'Lunes-Viernes', '08:00', '14:00', '1122334455', 'Valle de Aburrá',
-    'Envigado', 'Institución Educativa Sur', '1234432112',
-    'Sede Rural', '6', 'T', '800987654', 'NutriCo S.A.'
-);
 
--- Insertar en la tabla user (nuevo administrativo)
-INSERT INTO user (username, email, password, rol, Administrativos_numeroDoc, Profesor_numeroDoc)
-VALUES ('adminmariana', 'mariana.suarez@colegio.edu.co', 'adminpass2', 'administrativo', '1002', '');
+INSERT INTO basedatosfundacion.estudiantes (
+  numDoc, tipoDoc, primerNombre, segundoNombre, primerApellido, segundoApellido, genero,
+  fechaNacimiento, estadoCivil, grupoEtnico, factorVulnerabilidad, paisNacimiento,
+  municipioNacimiento, municipioResidencia, direccionResidencia, zonaEstudiante,
+  mundo, modalidad, dias, horarioInicio, horarioFin, codigoDaneIE, codigoDaneSede,
+  grado, jornada, nit)
+VALUES 
+('111111111', 'TI', 'Carlos', NULL, 'Ramírez', 'Lopez', 'M', '2010-05-10', 'Soltero',
+ 'Mestizo', 'Desplazado', 'Colombia', 'Medellín', 'Sabaneta', 'Calle 10 #5-30', 'Urbana',
+ 'Mundo1', 'Virtual', 'Lunes-Miércoles', '08:00', '10:00', '105500', '105501', '5', 'M', '800123456'),
+ 
+('222222222', 'CC', 'Ana', 'Lucía', 'Gómez', NULL, 'F', '2009-11-25', 'Soltera',
+ 'Afrocolombiano', 'Discapacidad', 'Colombia', 'Cali', 'Itagüí', 'Cra 20 #15-50', 'Rural',
+ 'Mundo2', 'Presencial', 'Martes-Jueves', '14:00', '16:00', '205500', '205501', '6', 'T', '900987654');
 
--- Insertar en la tabla user (nuevo profesor)
-INSERT INTO user (username, email, password, rol, Administrativos_numeroDoc, Profesor_numeroDoc)
-VALUES ('diegotorres', 'diego.torres@colegio.edu.co', 'profpass2', 'profesor', '', '2002');
 
--- Insertar en la tabla Asistencia
-INSERT INTO Asistencia (
-    numeroDocEstudiante, instucionEducativa, fechaAsistencia, Asistio,
-    Estudiantes_numeroDocEstudiante, Profesor_numeroDoc, Administrativos_numeroDoc
-)
-VALUES (
-    '3002', 'Institución Educativa Sur', '2025-04-05 08:05:00', 1,
-    '3002', '2002', '1002'
-);
+INSERT INTO basedatosfundacion.asistencia (
+  institucionEducativa, fechaAsistencia, Usuario_numDoc, Usuario_tipoDoc)
+VALUES 
+('IE Sabaneta Central', '2025-04-06 08:00:00', '123456789', 'CC'),
+('IE Itagüí Rural', '2025-04-06 14:00:00', '987654321', 'TI');
 
--- Insertar en Administrativos_has_Estudiantes
-INSERT INTO Administrativos_has_Estudiantes (Administrativos_numeroDoc, Estudiantes_numeroDocEstudiante)
-VALUES ('1002', '3002');
 
--- Insertar en Administrativos_has_Profesor
-INSERT INTO Administrativos_has_Profesor (Administrativos_numeroDoc, Profesor_numeroDoc)
-VALUES ('1002', '2002');
+INSERT INTO basedatosfundacion.asistencia_has_estudiantes (
+  Asistencia_idAsistencia, Estudiantes_numDoc, Estudiantes_tipoDoc, asistio)
+VALUES 
+(1, '111111111', 'TI', 1),
+(2, '222222222', 'CC', 0);
