@@ -11,7 +11,7 @@
             padding: 0;
             background: linear-gradient(to right, #5de0e6, #004aad);
             color: white;
-            overflow: hidden; /* Evita el scroll */
+            overflow: hidden;
         }
 
         .container {
@@ -27,7 +27,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 60px; /* Ajusta según necesites */
+            height: 60px;
         }
 
         .header-left {
@@ -98,29 +98,27 @@
         .main-content {
             flex: 1;
             display: flex;
-            justify-content: space-between; /* Alinea a la izquierda */
+            justify-content: space-between;
             align-items: center;
             padding-top: 20px;
-            padding-left: 20px; /* Ajusta el padding */
+            padding-left: 20px;
         }
 
         .main-content h1 {
             font-size: 2em;
             margin-bottom: 20px;
-
-            transform: translateY(-430px) translateX(315px); /* Mueve el título 1000px a la izquierda */
+            transform: translateY(-430px) translateX(315px);
         }
 
         .hexagon-grid {
             display: grid;
             grid-template-columns: repeat(3, 150px);
             grid-gap: 0;
-            justify-content: flex-start; /* Alinea a la izquierda */
+            justify-content: flex-start;
             align-items: center;
             position: relative;
             top: 50px;
             left: -80px;
-
         }
 
         .hexagon {
@@ -139,7 +137,6 @@
             padding: 15px;
         }
 
-        /* Ajuste preciso de las posiciones de los hexágonos */
         .hexagon:nth-child(1) {
             grid-column: 3;
             grid-row: 1;
@@ -185,8 +182,8 @@
 
         .carousel {
             position: relative;
-            width: calc(100% - 700px); /* Ajusta el ancho para que no tenga margen */
-            height: calc(100% - 162px); /* Ajusta la altura para que no tenga margen */
+            width: calc(100% - 700px);
+            height: calc(100% - 162px);
             overflow: hidden;
             clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 50%);
             left: 0px;
@@ -220,7 +217,7 @@
             border: none;
             padding: 10px;
             cursor: pointer;
-            z-index: 2; /* Asegura que las flechas estén por encima de las imágenes */
+            z-index: 2;
         }
 
         .carousel-control.prev {
@@ -229,6 +226,61 @@
 
         .carousel-control.next {
             right: 10px;
+        }
+
+        /* Estilos para el botón "Agregar Estudiante" y la transición */
+        .hexagon.agregar,
+        .hexagon.editar-eliminar {
+            position: relative;
+        }
+
+        .agregar-opciones,
+        .editar-eliminar-opciones {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(4, 129, 151, 0.9); /* Fondo semi-transparente */
+            transition: opacity 0.3s ease;
+        }
+
+        .agregar-opciones button,
+        .editar-eliminar-opciones button {
+            background-color: transparent;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px 0;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+
+        .agregar:hover .agregar-opciones,
+        .editar-eliminar:hover .editar-eliminar-opciones {
+            display: flex;
+        }
+
+        .agregar:hover,
+        .editar-eliminar:hover {
+            background-color: transparent;
+        }
+
+        .agregar-opciones::before,
+        .editar-eliminar-opciones::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: white;
         }
     </style>
 </head>
@@ -252,12 +304,24 @@
     <section class="main-content">
         <h1>¡Bienvenido!</h1>
         <div class="hexagon-grid">
-            <div class="hexagon">EDITAR / ELIMINAR ESTUDIANTE</div>
-            <div class="hexagon">VISUALIZAR ASISTENCIA</div>
-            <div class="hexagon">ANALISIS DE DATOS</div>
-            <div class="hexagon">TOMAR ASISTENCIA</div>
-            <div class="hexagon">VISUALIZAR ESTUDIANTE</div>
-            <div class="hexagon">AGREGAR ESTUDIANTE</div>
+            <div class="hexagon editar-eliminar">
+                EDITAR / ELIMINAR
+                <div class="editar-eliminar-opciones">
+                    <button onclick="window.location.href='editar-eliminarestudiante.html'">Estudiante </button>
+                    <button onclick="window.location.href='editar-eliminarprofesor.html'"> Profesor</button>
+                </div>
+            </div>
+            <div class="hexagon" onclick="window.location.href='visualizarAst.html'">VISUALIZAR ASISTENCIA</div>
+            <div class="hexagon" onclick="window.location.href='analisisDatos.html'">ANALISIS DE DATOS</div>
+            <div class="hexagon" onclick="window.location.href='tomarAsistencia.html'">TOMAR ASISTENCIA</div>
+            <div class="hexagon" onclick="window.location.href='visualizarEst.html'">VISUALIZAR ESTUDIANTE</div>
+            <div class="hexagon agregar">
+                AGREGAR
+                <div class="agregar-opciones">
+                    <button onclick="window.location.href='agregarEstudiante.html'">Estudiante</button>
+                    <button onclick="window.location.href='agregarProfesor.html'">Profesor</button>
+                </div>
+            </div>
         </div>
         <div class="carousel">
             <div class="carousel-inner">
@@ -299,7 +363,7 @@
 
     document.addEventListener('wheel', function(event) {
         if (event.ctrlKey) {
-            event.preventDefault(); // Previene el zoom con Control + scroll
+            event.preventDefault();
         }
     }, { passive: false });
 
@@ -332,7 +396,6 @@
         showSlide(currentIndex - 1);
     }
 
-    // Mueve las imágenes automáticamente cada 7 segundos
     setInterval(nextSlide, 7000);
 </script>
 </body>

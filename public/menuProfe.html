@@ -174,11 +174,11 @@
         .carousel {
             position: relative;
             width: calc(100% - 700px); /* Ajusta el ancho para que no tenga margen */
-            height: calc(100% - 150px); /* Ajusta la altura para que no tenga margen */
+            height: calc(100% - 125px); /* Ajusta la altura para que no tenga margen */
             overflow: hidden;
             clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 50%);
             left: 0px;
-            top: -91px;
+            top: -80px;
         }
 
         .carousel-inner {
@@ -240,10 +240,10 @@
     <section class="main-content">
         <h1>¡Bienvenido!</h1>
         <div class="hexagon-grid">
-            <div class="hexagon">VISUALIZAR ASISTENCIA</div>
-            <div class="hexagon">ANALISIS DE DATOS</div>
-            <div class="hexagon">TOMAR ASISTENCIA</div>
-            <div class="hexagon">VISUALIZAR ESTUDIANTE</div>
+            <div class="hexagon" onclick="window.location.href='visualizarAst.html'">VISUALIZAR ASISTENCIA</div>
+            <div class="hexagon" onclick="window.location.href='analisisDatos.html'">ANALISIS DE DATOS</div>
+            <div class="hexagon" onclick="window.location.href='tomarAsistencia.html'">TOMAR ASISTENCIA</div>
+            <div class="hexagon" onclick="window.location.href='visualizarEst.html'">VISUALIZAR ESTUDIANTE</div>
         </div>
         <div class="carousel">
             <div class="carousel-inner">

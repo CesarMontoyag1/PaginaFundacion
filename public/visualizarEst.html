@@ -26,7 +26,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 60px; /* Ajusta según necesites */
+      height: 60px;
     }
 
     .header-left {
@@ -37,8 +37,8 @@
     }
 
     .header-left span {
-      font-size: 32px; /* Aumenta el tamaño de la fuente */
-      margin-left: 25px; /* Ajusta el margen izquierdo si es necesario */
+      font-size: 32px;
+      margin-left: 25px;
     }
 
     .header-left img {
@@ -154,6 +154,64 @@
       text-align: left;
     }
 
+    .results-container h2 {
+      margin-bottom: 10px;
+    }
+
+    .table-container {
+      max-height: 400px; /* Altura máxima para el contenedor de la tabla */
+      overflow-y: auto; /* Habilitar desplazamiento vertical */
+      overflow-x: auto; /* Habilitar desplazamiento horizontal */
+      background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+      border-radius: 10px;
+      padding: 10px;
+      display: none; /* Ocultar inicialmente */
+    }
+
+    .results-container table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .results-container th, .results-container td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      color: black;
+      background-color: white;
+    }
+
+    .results-container th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .results-container td {
+      background-color: #f2f2f2;
+    }
+
+    .table-container::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+
+    .table-container::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .table-container::-webkit-scrollbar-thumb {
+      background: linear-gradient(45deg, #007bff, #00d4ff);
+      border-radius: 10px;
+      border: 3px solid #f1f1f1;
+    }
+
+    .table-container::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(45deg, #0056b3, #00a3cc);
+    }
+
     .logo {
       position: absolute;
       bottom: 10px;
@@ -166,13 +224,19 @@
       border: none;
       cursor: pointer;
       padding: 0;
-      font-size: 20px; /* Aumenta el tamaño del botón */
+      font-size: 20px;
     }
 
     .back-button img {
-      width: 40px; /* Aumenta el tamaño de la imagen */
+      width: 40px;
       margin-right: 0px;
       margin-left: 15px;
+    }
+
+    .error-message {
+      color: white;
+      font-size: 18px;
+      margin-top: 20px;
     }
 
   </style>
@@ -205,14 +269,70 @@
   </div>
   <div class="results-container">
     <h2>Resultados:</h2>
-    <div id="resultados">
+    <div class="table-container" id="resultados">
     </div>
+    <div class="error-message" id="error-message" style="display: none;">Estudiante no encontrado</div>
   </div>
 </section>
 
 <img src="img/logoFundacionBlanco.png" alt="Logo Fundación" class="logo">
 
 <script>
+  function buscarEstudiante() {
+    const documento = document.getElementById('documento').value;
+    const resultadosDiv = document.getElementById('resultados');
+    const tableContainer = document.querySelector('.table-container');
+    const errorMessage = document.getElementById('error-message');
+
+    fetch('/buscarEstudiante', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ documento })
+    })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Estudiante no encontrado');
+              }
+              return response.json();
+            })
+            .then(data => {
+              resultadosDiv.innerHTML = `
+        <table>
+          <tr><th>Nombre</th><td>${data.primerNombre} ${data.segundoNombre || ''} ${data.primerApellido} ${data.segundoApellido || ''}</td></tr>
+          <tr><th>Género</th><td>${data.genero}</td></tr>
+          <tr><th>Fecha de Nacimiento</th><td>${new Date(data.fechaNacimiento).toLocaleDateString()}</td></tr>
+          <tr><th>Estado Civil</th><td>${data.estadoCivil}</td></tr>
+          <tr><th>Grupo Étnico</th><td>${data.grupoEtnico}</td></tr>
+          <tr><th>Factor de Vulnerabilidad</th><td>${data.factorVulnerabilidad}</td></tr>
+          <tr><th>País de Nacimiento</th><td>${data.paisNacimiento}</td></tr>
+          <tr><th>Municipio de Nacimiento</th><td>${data.municipioNacimiento}</td></tr>
+          <tr><th>Municipio de Residencia</th><td>${data.municipioResidencia}</td></tr>
+          <tr><th>Dirección de Residencia</th><td>${data.direccionResidencia}</td></tr>
+          <tr><th>Zona del Estudiante</th><td>${data.zonaEstudiante}</td></tr>
+          <tr><th>Mundo</th><td>${data.mundo}</td></tr>
+          <tr><th>Modalidad</th><td>${data.modalidad}</td></tr>
+          <tr><th>Días</th><td>${data.dias}</td></tr>
+          <tr><th>Horario de Inicio</th><td>${data.horarioInicio}</td></tr>
+          <tr><th>Horario de Fin</th><td>${data.horarioFin}</td></tr>
+          <tr><th>Código DANE IE</th><td>${data.codigoDaneIE}</td></tr>
+          <tr><th>Código DANE Sede</th><td>${data.codigoDaneSede}</td></tr>
+          <tr><th>Grado</th><td>${data.grado}</td></tr>
+          <tr><th>Jornada</th><td>${data.jornada}</td></tr>
+          <tr><th>NIT</th><td>${data.nit}</td></tr>
+        </table>
+      `;
+              tableContainer.style.display = 'block'; // Mostrar la tabla de resultados
+              errorMessage.style.display = 'none'; // Ocultar el mensaje de error
+            })
+            .catch(error => {
+              resultadosDiv.innerHTML = '';
+              tableContainer.style.display = 'none'; // Ocultar la tabla de resultados
+              errorMessage.style.display = 'block'; // Mostrar el mensaje de error
+            });
+  }
+
   function toggleDropdown() {
     var dropdown = document.getElementById('dropdownMenu');
     if (dropdown.style.display === 'block') {
@@ -230,16 +350,6 @@
     }
   });
 
-  function buscarEstudiante() {
-    const documento = document.getElementById('documento').value;
-    const resultadosDiv = document.getElementById('resultados');
-    resultadosDiv.innerHTML = `<p>Resultados para el documento: ${documento}</p>`;
-    resultadosDiv.innerHTML += `
-      <p>Nombre: Juan Pérez</p>
-      <p>Edad: 15 años</p>
-      <p>Institución: Colegio ABC</p>
-    `;
-  }
 </script>
 </body>
 </html>
