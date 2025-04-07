@@ -243,16 +243,12 @@
     <div class="form-grid">
       <!-- Campos del formulario -->
       <div>
-        <label for="informe">Informe</label>
-        <input type="text" id="informe">
-      </div>
-      <div>
-        <label for="numeroDocumento">N° de Documento</label>
-        <input type="text" id="numeroDocumento">
+        <label for="numDoc">N° de Documento</label>
+        <input type="text" id="numDoc" name="numDoc">
       </div>
       <div>
         <label for="tipoDoc">Tipo Doc</label>
-        <select id="tipoDoc">
+        <select id="tipoDoc" name="tipoDoc">
           <option value="CC">C.C.</option>
           <option value="TI">T.I.</option>
           <option value="RC">R.C.</option>
@@ -270,24 +266,20 @@
         </select>
       </div>
       <div>
-        <label for="nombreCompleto">NOMBRE COMPLETO</label>
-        <input type="text" id="nombreCompleto">
-      </div>
-      <div>
         <label for="primerNombre">Primer nombre del estudiante</label>
-        <input type="text" id="primerNombre">
+        <input type="text" id="primerNombre" name="primerNombre">
       </div>
       <div>
         <label for="segundoNombre">Segundo Nombre del estudiante</label>
-        <input type="text" id="segundoNombre">
+        <input type="text" id="segundoNombre" name="segundoNombre">
       </div>
       <div>
         <label for="primerApellido">Primer apellido del estudiante</label>
-        <input type="text" id="primerApellido">
+        <input type="text" id="primerApellido" name="primerApellido">
       </div>
       <div>
         <label for="segundoApellido">Segundo apellido del estudiante</label>
-        <input type="text" id="segundoApellido">
+        <input type="text" id="segundoApellido" name="segundoApellido">
       </div>
       <div>
         <label for="genero">Género</label>
@@ -298,99 +290,108 @@
       </div>
       <div>
         <label for="fechaNacimiento">Fecha de Nacimiento</label>
-        <input type="text" id="fechaNacimiento">
+        <input type="date" id="fechaNacimiento" name="fechaNacimiento">
       </div>
       <div>
         <label for="estadoCivil">Estado Civil</label>
-        <input type="text" id="estadoCivil">
+        <input type="text" id="estadoCivil" name="estadoCivil">
       </div>
       <div>
-        <label for="grupoEtnico">Grupo étnico a que pertenece el niño o niña beneficiario (a)</label>
-        <input type="text" id="grupoEtnico">
+        <label for="grupoEtnico">Grupo étnico </label>
+        <input type="text" id="grupoEtnico" name="grupoEtnico">
       </div>
       <div>
         <label for="factorVulnerabilidad">Factor de vulnerabilidad</label>
-        <input type="text" id="factorVulnerabilidad">
+        <input type="text" id="factorVulnerabilidad" name="factorVulnerabilidad">
       </div>
       <div>
         <label for="paisNacimiento">País de nacimiento</label>
-        <input type="text" id="paisNacimiento">
+        <input type="text" id="paisNacimiento" name="paisNacimiento">
       </div>
       <div>
         <label for="municipioNacimiento">Municipio de nacimiento</label>
-        <input type="text" id="municipioNacimiento">
+        <input type="text" id="municipioNacimiento" name="municipioNacimiento">
       </div>
       <div>
         <label for="municipioResidencia">Municipio de residencia</label>
-        <input type="text" id="municipioResidencia">
+        <input type="text" id="municipioResidencia" name="municipioResidencia">
       </div>
       <div>
         <label for="direccionResidencia">Dirección de residencia</label>
-        <input type="text" id="direccionResidencia">
+        <input type="text" id="direccionResidencia" name="direccionResidencia">
       </div>
       <div>
         <label for="zonaEstudiante">Zona del estudiante</label>
-        <input type="text" id="zonaEstudiante">
+        <input type="text" id="zonaEstudiante" name="zonaEstudiante">
       </div>
       <div>
         <label for="mundo">Mundo</label>
-        <input type="text" id="mundo">
+        <input type="text" id="mundo" name="mundo">
       </div>
       <div>
         <label for="modalidad">Modalidad</label>
-        <input type="text" id="modalidad">
+        <input type="text" id="modalidad" name="modalidad">
       </div>
       <div>
         <label for="dias">Días</label>
-        <input type="text" id="dias">
+        <select id="dias" name="dias">
+          <option value="LU JU">LU JU</option>
+          <option value="LU MI">LU MI</option>
+          <option value="LU VI">LU VI</option>
+          <option value="MA JU">MA JU</option>
+          <option value="MA MI">MA MI</option>
+          <option value="MA VI">MA VI</option>
+          <option value="MI VI">MI VI</option>
+          <option value="SA">SA</option>
+        </select>
       </div>
       <div>
         <label for="horarioInicio">Horario Inicio</label>
-        <input type="text" id="horarioInicio">
+        <input type="text" id="horarioInicio" name="horarioInicio">
       </div>
       <div>
         <label for="horarioFin">Horario Fin</label>
-        <input type="text" id="horarioFin">
+        <input type="text" id="horarioFin" name="horarioFin">
       </div>
       <div>
-        <label for="codigoDane">Código DANE IE</label>
-        <input type="text" id="codigoDane">
+        <label for="codigoDaneIE">Código DANE IE</label>
+        <input type="text" id="codigoDaneIE" name="codigoDaneIE">
       </div>
       <div>
         <label for="subregionIE">Subregión IE</label>
-        <input type="text" id="subregionIE">
+        <input type="text" id="subregionIE" name="subregionIE">
       </div>
       <div>
         <label for="municipioIE">Municipio IE</label>
-        <input type="text" id="municipioIE">
+        <input type="text" id="municipioIE" name="municipioIE">
       </div>
       <div>
         <label for="institucionEducativa">Institución Educativa</label>
-        <input type="text" id="institucionEducativa">
+        <input type="text" id="institucionEducativa" name="institucionEducativa">
       </div>
       <div>
         <label for="codigoDaneSede">Código DANE Sede</label>
-        <input type="text" id="codigoDaneSede">
+        <input type="text" id="codigoDaneSede" name="codigoDaneSede">
       </div>
       <div>
         <label for="sede">Sede</label>
-        <input type="text" id="sede">
+        <input type="text" id="sede" name="sede">
       </div>
       <div>
         <label for="grado">Grado</label>
-        <input type="text" id="grado">
+        <input type="text" id="grado" name="grado">
       </div>
       <div>
         <label for="jornada">Jornada</label>
-        <input type="text" id="jornada">
+        <input type="text" id="jornada" name="jornada">
       </div>
       <div>
         <label for="nit">NIT</label>
-        <input type="text" id="nit">
+        <input type="text" id="nit" name="nit">
       </div>
       <div>
         <label for="proveedor">Proveedor</label>
-        <input type="text" id="proveedor">
+        <input type="text" id="proveedor" name="proveedor">
       </div>
     </div>
     <button onclick="agregarDatos()">Agregar</button>
@@ -399,8 +400,6 @@
 
 <img src="img/logoFundacionBlanco.png" alt="Logo Fundación" class="logo">
 
-<script src="datosEstudiante.js"></script>
-<script src="datos.js"></script>
 <script>
   function toggleDropdown() {
     var dropdown = document.getElementById('dropdownMenu');
@@ -420,44 +419,25 @@
   });
 
   function agregarDatos() {
-    const informe = document.getElementById('informe').value;
-    const numeroDocumento = document.getElementById('numeroDocumento').value;
-    const tipoDoc = document.getElementById('tipoDoc').value;
-    const nombreCompleto = document.getElementById('nombreCompleto').value;
-    const primerNombre = document.getElementById('primerNombre').value;
-    const segundoNombre = document.getElementById('segundoNombre').value;
-    const primerApellido = document.getElementById('primerApellido').value;
-    const segundoApellido = document.getElementById('segundoApellido').value;
-    const genero = document.querySelector('input[name="genero"]:checked').value;
-    const fechaNacimiento = document.getElementById('fechaNacimiento').value;
-    const estadoCivil = document.getElementById('estadoCivil').value;
-    const grupoEtnico = document.getElementById('grupoEtnico').value;
-    const factorVulnerabilidad = document.getElementById('factorVulnerabilidad').value;
-    const paisNacimiento = document.getElementById('paisNacimiento').value;
-    const municipioNacimiento = document.getElementById('municipioNacimiento').value;
-    const municipioResidencia = document.getElementById('municipioResidencia').value;
-    const direccionResidencia = document.getElementById('direccionResidencia').value;
-    const zonaEstudiante = document.getElementById('zonaEstudiante').value;
-    const mundo = document.getElementById('mundo').value;
-    const modalidad = document.getElementById('modalidad').value;
-    const dias = document.getElementById('dias').value;
-    const horarioInicio = document.getElementById('horarioInicio').value;
-    const horarioFin = document.getElementById('horarioFin').value;
-    const codigoDane = document.getElementById('codigoDane').value;
-    const subregionIE = document.getElementById('subregionIE').value;
-    const municipioIE = document.getElementById('municipioIE').value;
-    const institucionEducativa = document.getElementById('institucionEducativa').value;
-    const codigoDaneSede = document.getElementById('codigoDaneSede').value;
-    const sede = document.getElementById('sede').value;
-    const grado = document.getElementById('grado').value;
-    const jornada = document.getElementById('jornada').value;
-    const nit = document.getElementById('nit').value;
-    const proveedor = document.getElementById('proveedor').value;
+    const formData = new FormData(document.querySelector('.form-container'));
+    const data = Object.fromEntries(formData.entries());
 
-    const estudiante = new Estudiante(informe, numeroDocumento, tipoDoc, nombreCompleto, primerNombre, segundoNombre, primerApellido, segundoApellido, genero, fechaNacimiento, estadoCivil, grupoEtnico, factorVulnerabilidad, paisNacimiento, municipioNacimiento, municipioResidencia, direccionResidencia, zonaEstudiante, mundo, modalidad, dias, horarioInicio, horarioFin, codigoDane, subregionIE, municipioIE, institucionEducativa, codigoDaneSede, sede, grado, jornada, nit, proveedor);
-
-    localStorage.setItem('estudiante', JSON.stringify(estudiante));
-    alert("Datos agregados con éxito.");
+    fetch('/agregarEstudiante', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                alert('Estudiante agregado exitosamente');
+              } else {
+                alert('Error al agregar estudiante');
+              }
+            })
+            .catch(error => console.error('Error:', error));
   }
 </script>
 </body>

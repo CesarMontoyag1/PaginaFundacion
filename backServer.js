@@ -11,7 +11,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // correr esta ruta que es en donde esta el servidor
 // http://localhost:3000/login.html
 
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -83,6 +82,44 @@ app.post('/buscarEstudiante', (req, res) => {
         }
     });
 });
+
+app.post('/agregarEstudiante', (req, res) => {
+    const {
+        numDoc, tipoDoc, primerNombre, segundoNombre, primerApellido, segundoApellido,
+        genero, fechaNacimiento, estadoCivil, grupoEtnico, factorVulnerabilidad,
+        paisNacimiento, municipioNacimiento, municipioResidencia, direccionResidencia,
+        zonaEstudiante, mundo, modalidad, dias, horarioInicio, horarioFin,
+        codigoDaneIE, subregionIE, municipioIE, institucionEducativa, codigoDaneSede,
+        sede, grado, jornada, nit, proveedor
+    } = req.body;
+
+    const query = `
+        INSERT INTO estudiantes (
+            numDoc, tipoDoc, primerNombre, segundoNombre, primerApellido, segundoApellido,
+            genero, fechaNacimiento, estadoCivil, grupoEtnico, factorVulnerabilidad,
+            paisNacimiento, municipioNacimiento, municipioResidencia, direccionResidencia,
+            zonaEstudiante, mundo, modalidad, dias, horarioInicio, horarioFin,
+            codigoDaneIE, subregionIE, municipioIE, institucionEducativa, codigoDaneSede,
+            sede, grado, jornada, nit, proveedor
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    db.query(query, [
+        numDoc, tipoDoc, primerNombre, segundoNombre, primerApellido, segundoApellido,
+        genero, fechaNacimiento, estadoCivil, grupoEtnico, factorVulnerabilidad,
+        paisNacimiento, municipioNacimiento, municipioResidencia, direccionResidencia,
+        zonaEstudiante, mundo, modalidad, dias, horarioInicio, horarioFin,
+        codigoDaneIE, subregionIE, municipioIE, institucionEducativa, codigoDaneSede,
+        sede, grado, jornada, nit, proveedor
+    ], (err, results) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ success: false, message: 'Error interno del servidor' });
+        }
+        res.json({ success: true, message: 'Estudiante agregado exitosamente' });
+    });
+});
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
