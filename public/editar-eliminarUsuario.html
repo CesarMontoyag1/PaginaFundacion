@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar o Eliminar - BaseKids</title>
+    <title>Editar o Eliminar Usuario - BaseKids</title>
     <style>
+        /* Estilos similares a los de editar-eliminarEstudiante.html */
         body {
             font-family: sans-serif;
             margin: 0;
@@ -225,7 +226,7 @@
         <button class="back-button">
             <img src="img/Volver.png" alt="Atrás">
         </button>
-        <span>Editar o Eliminar</span>
+        <span>Editar o Eliminar Usuario</span>
     </div>
     <div class="header-right">
         <button><img src="img/CampanaSinNotificacion.png" alt="Notificación"></button>
@@ -242,7 +243,7 @@
 <section class="main-content">
     <div class="search-container">
         <input type="text" id="documento" placeholder="Ingrese documento de identidad">
-        <button onclick="buscarEstudiante()">Buscar</button>
+        <button onclick="buscarUsuario()">Buscar</button>
     </div>
     <div class="results-container" id="resultsContainer">
         <h2>Resultados:</h2>
@@ -271,9 +272,9 @@
         }
     });
 
-    function buscarEstudiante() {
+    function buscarUsuario() {
         const documento = document.getElementById('documento').value;
-        fetch('/buscarEstudiante', {
+        fetch('/buscarUsuario', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -283,123 +284,54 @@
             .then(response => response.json())
             .then(data => {
                 if (data) {
-                    mostrarDatosEstudiante(data);
+                    mostrarDatosUsuario(data);
                     document.getElementById('resultsContainer').style.display = 'block'; // Mostrar el contenedor de resultados
                 } else {
-                    alert('Estudiante no encontrado');
+                    alert('Usuario no encontrado');
                 }
             })
             .catch(error => console.error('Error:', error));
     }
 
-    function mostrarDatosEstudiante(estudiante) {
+    function mostrarDatosUsuario(usuario) {
         const resultadosDiv = document.getElementById('resultados');
         resultadosDiv.innerHTML = `
-            <form id="formEstudiante">
+            <form id="formUsuario">
                 <label>Documento:</label>
-                <input type="text" id="numDoc" value="${estudiante.numDoc}" readonly>
+                <input type="text" id="numDoc" value="${usuario.numDoc}" readonly>
                 <label>Tipo de Documento:</label>
-                <input type="text" id="tipoDoc" value="${estudiante.tipoDoc}">
-                <label>Primer Nombre:</label>
-                <input type="text" id="primerNombre" value="${estudiante.primerNombre}">
-                <label>Segundo Nombre:</label>
-                <input type="text" id="segundoNombre" value="${estudiante.segundoNombre}">
-                <label>Primer Apellido:</label>
-                <input type="text" id="primerApellido" value="${estudiante.primerApellido}">
-                <label>Segundo Apellido:</label>
-                <input type="text" id="segundoApellido" value="${estudiante.segundoApellido}">
-                <label>Género:</label>
-                <input type="text" id="genero" value="${estudiante.genero}">
-                <label>Fecha de Nacimiento:</label>
-                <input type="date" id="fechaNacimiento" value="${estudiante.fechaNacimiento}">
-                <label>Estado Civil:</label>
-                <input type="text" id="estadoCivil" value="${estudiante.estadoCivil}">
-                <label>Grupo Étnico:</label>
-                <input type="text" id="grupoEtnico" value="${estudiante.grupoEtnico}">
-                <label>Factor de Vulnerabilidad:</label>
-                <input type="text" id="factorVulnerabilidad" value="${estudiante.factorVulnerabilidad}">
-                <label>País de Nacimiento:</label>
-                <input type="text" id="paisNacimiento" value="${estudiante.paisNacimiento}">
-                <label>Municipio de Nacimiento:</label>
-                <input type="text" id="municipioNacimiento" value="${estudiante.municipioNacimiento}">
-                <label>Municipio de Residencia:</label>
-                <input type="text" id="municipioResidencia" value="${estudiante.municipioResidencia}">
-                <label>Dirección de Residencia:</label>
-                <input type="text" id="direccionResidencia" value="${estudiante.direccionResidencia}">
-                <label>Zona del Estudiante:</label>
-                <input type="text" id="zonaEstudiante" value="${estudiante.zonaEstudiante}">
-                <label>Mundo:</label>
-                <input type="text" id="mundo" value="${estudiante.mundo}">
-                <label>Modalidad:</label>
-                <input type="text" id="modalidad" value="${estudiante.modalidad}">
-                <label>Días:</label>
-                <input type="text" id="dias" value="${estudiante.dias}">
-                <label>Horario de Inicio:</label>
-                <input type="time" id="horarioInicio" value="${estudiante.horarioInicio}">
-                <label>Horario de Fin:</label>
-                <input type="time" id="horarioFin" value="${estudiante.horarioFin}">
-                <label>Código DANE IE:</label>
-                <input type="text" id="codigoDaneIE" value="${estudiante.codigoDaneIE}">
-                <label>Subregión IE:</label>
-                <input type="text" id="subregionIE" value="${estudiante.subregionIE}">
-                <label>Municipio IE:</label>
-                <input type="text" id="municipioIE" value="${estudiante.municipioIE}">
-                <label>Institución Educativa:</label>
-                <input type="text" id="institucionEducativa" value="${estudiante.institucionEducativa}">
-                <label>Código DANE Sede:</label>
-                <input type="text" id="codigoDaneSede" value="${estudiante.codigoDaneSede}">
-                <label>Sede:</label>
-                <input type="text" id="sede" value="${estudiante.sede}">
-                <label>Grado:</label>
-                <input type="text" id="grado" value="${estudiante.grado}">
-                <label>Jornada:</label>
-                <input type="text" id="jornada" value="${estudiante.jornada}">
-                <label>NIT:</label>
-                <input type="text" id="nit" value="${estudiante.nit}">
-                <label>Proveedor:</label>
-                <input type="text" id="proveedor" value="${estudiante.proveedor}">
-                <button type="button" class="editar" onclick="editarEstudiante('${estudiante.numDoc}')">Editar</button>
-                <button type="button" class="eliminar" onclick="eliminarEstudiante('${estudiante.numDoc}')">Eliminar</button>
+                <input type="text" id="tipoDoc" value="${usuario.tipoDoc}">
+                <label>Nombre:</label>
+                <input type="text" id="nombre" value="${usuario.nombre}">
+                <label>Apellido:</label>
+                <input type="text" id="apellido" value="${usuario.apellido}">
+                <label>Username:</label>
+                <input type="text" id="username" value="${usuario.username}">
+                <label>Email:</label>
+                <input type="email" id="email" value="${usuario.email}">
+                <label>Password:</label>
+                <input type="password" id="password" value="${usuario.password}">
+                <label>Rol:</label>
+                <input type="text" id="rol" value="${usuario.rol}">
+                <button type="button" class="editar" onclick="editarUsuario('${usuario.numDoc}')">Editar</button>
+                <button type="button" class="eliminar" onclick="eliminarUsuario('${usuario.numDoc}')">Eliminar</button>
             </form>
         `;
     }
 
-    function editarEstudiante(numDoc) {
+    function editarUsuario(numDoc) {
         const datos = {
             numDoc,
             tipoDoc: document.getElementById('tipoDoc').value,
-            primerNombre: document.getElementById('primerNombre').value,
-            segundoNombre: document.getElementById('segundoNombre').value,
-            primerApellido: document.getElementById('primerApellido').value,
-            segundoApellido: document.getElementById('segundoApellido').value,
-            genero: document.getElementById('genero').value,
-            fechaNacimiento: document.getElementById('fechaNacimiento').value,
-            estadoCivil: document.getElementById('estadoCivil').value,
-            grupoEtnico: document.getElementById('grupoEtnico').value,
-            factorVulnerabilidad: document.getElementById('factorVulnerabilidad').value,
-            paisNacimiento: document.getElementById('paisNacimiento').value,
-            municipioNacimiento: document.getElementById('municipioNacimiento').value,
-            municipioResidencia: document.getElementById('municipioResidencia').value,
-            direccionResidencia: document.getElementById('direccionResidencia').value,
-            zonaEstudiante: document.getElementById('zonaEstudiante').value,
-            mundo: document.getElementById('mundo').value,
-            modalidad: document.getElementById('modalidad').value,
-            dias: document.getElementById('dias').value,
-            horarioInicio: document.getElementById('horarioInicio').value,
-            horarioFin: document.getElementById('horarioFin').value,
-            codigoDaneIE: document.getElementById('codigoDaneIE').value,
-            subregionIE: document.getElementById('subregionIE').value,
-            municipioIE: document.getElementById('municipioIE').value,
-            institucionEducativa: document.getElementById('institucionEducativa').value,
-            codigoDaneSede: document.getElementById('codigoDaneSede').value,
-            sede: document.getElementById('sede').value,
-            grado: document.getElementById('grado').value,
-            jornada: document.getElementById('jornada').value,
-            nit: document.getElementById('nit').value,
-            proveedor: document.getElementById('proveedor').value,
+            nombre: document.getElementById('nombre').value,
+            apellido: document.getElementById('apellido').value,
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            rol: document.getElementById('rol').value,
         };
 
-        fetch('/editarEstudiante', {
+        fetch('/editarUsuario', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -409,40 +341,44 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Estudiante editado exitosamente');
+                    alert('Usuario editado exitosamente');
                 } else {
-                    alert('Error al editar estudiante: ' + (data.message || 'Respuesta inesperada del servidor'));
+                    alert('Error al editar usuario: ' + (data.message || 'Respuesta inesperada del servidor'));
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error al editar estudiante: ' + error.message);
+                alert('Error al editar usuario: ' + error.message);
             });
     }
 
-    function eliminarEstudiante(numDoc) {
-        fetch('/eliminarEstudiante', {
+    function eliminarUsuario(numDoc) {
+        fetch('/eliminarUsuario', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ numDoc })
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
-                    alert('Estudiante eliminado exitosamente');
+                    alert('Usuario eliminado exitosamente');
                     location.reload();
                 } else {
-                    alert('Error al eliminar estudiante: ' + (data.message || 'Respuesta inesperada del servidor'));
+                    alert('Error al eliminar usuario: ' + (data.message || 'Respuesta inesperada del servidor'));
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error al eliminar estudiante: ' + error.message);
+                alert('Error al eliminar usuario: ' + error.message);
             });
     }
 </script>
 </body>
 </html>
-
